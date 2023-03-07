@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { commentUpdate } from './../redux/comment-reducer';
+import { commentDelete, commentUpdate } from './../redux/comment-reducer';
 
 
 function SingleComment({ data }) {
@@ -15,23 +15,31 @@ function SingleComment({ data }) {
 		}
 	}, [text])
 
+
+	// Сетаем текст нового комментария
 	const handleInput = (e) => {
 		setCommentText(e.target.value)
 	}
 
+
+	// Обновляем комментарий
 	const handleUpdate = (e) => {
 		e.preventDefault()
-		console.log(commentText)
-		dispatch(commentUpdate({ commentText, id }))
-
+		dispatch(commentUpdate(commentText, id))
 	}
+
+	// Удаляем комментарий
+	const handleDelete = (e) => {
+		e.preventDefault()
+		dispatch(commentDelete(id))
+	}
+
 
 	return (
 		<form onSubmit={handleUpdate} className="comment-item">
-			<div className="comment-item-delete">&times;</div>
+			<div onClick={handleDelete} className="comment-item-delete">&times;</div>
 			<input type='text' value={commentText} onChange={handleInput} />
 			<input type='submit' hidden />
-			<p>{text}</p>
 		</form>
 	)
 }
