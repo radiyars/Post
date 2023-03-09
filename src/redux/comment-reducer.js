@@ -1,11 +1,12 @@
+import { errorOn, loaderOff, loaderOn } from "./app-reducer"
 
 
-const COMMENT_CREATE = 'POST/COMMENT_CREATE'
+export const COMMENT_CREATE = 'POST/COMMENT_CREATE'
 const COMMENT_UPDATE = 'POST/COMMENT_UPDATE'
 const COMMENT_DELETE = 'POST/COMMENT_DELETE'
 const COMMENTS_LOAD = 'POST/COMMENT_LOAD'
-const LOADER_DISPLAY_ON = 'POST/LOADER_DISPLAY_ON'
-const LOADER_DISPLAY_OFF = 'POST/LOADER_DISPLAY_OFF'
+
+
 
 
 const initialState = {
@@ -39,6 +40,20 @@ export const commentsReducer = (state = initialState, action) => {
 					comments: newComments
 				}
 			})();
+
+		case COMMENTS_LOAD: {
+			const newComments = action.data.map(i => {
+				return {
+					text: i.name,
+					id: i.id
+				}
+			})
+			return {
+				...state,
+				comments: newComments
+			}
+		}
+
 		default:
 			return state;
 	}
@@ -51,32 +66,21 @@ export const commentDelete = (id) => ({ type: COMMENT_DELETE, id })
 
 export function commentsLoad() {
 	return async dispatch => {
-		const response = await fetch('https://jsonplaceholder.typicode.com/comments?_limit=10');
-		const jsonData = await response.json();
-		dispatch({
-			type: COMMENTS_LOAD,
-			data: jsonData
-		});
+		try {
+			dispatch(loaderOn());
+			const response = await fetch('https://jsonplaceholder.typicode.com/comments?_limit=5');
+			const jsonData = await response.json();
+
+			setTimeout(() => {
+				dispatch({
+					type: COMMENTS_LOAD,
+					data: jsonData
+				});
+				dispatch(loaderOff());
+			}, 1000);
+		} catch (err) {
+			dispatch(errorOn('Ошибка API'));
+			dispatch(loaderOff());
+		}
 	}
 }
-
-// export function commentsLoad() {
-// 	return async dispatch => {
-// 		try {
-// 			dispatch(loaderOn());
-// 			const response = await fetch('https://jsonplaceholder.typicode.com/comments?_limit=10');
-// 			const jsonData = await response.json();
-
-// 			setTimeout(() => {
-// 				dispatch({
-// 					type: COMMENTS_LOAD,
-// 					data: jsonData
-// 				});
-// 				dispatch(loaderOff());
-// 			}, 1000);
-// 		} catch (err) {
-// 			dispatch(errorOn('Ошибка API'));
-// 			dispatch(loaderOff());
-// 		}
-// 	}
-// }

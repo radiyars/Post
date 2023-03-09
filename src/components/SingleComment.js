@@ -38,8 +38,10 @@ function SingleComment({ data }) {
 	return (
 		<form onSubmit={handleUpdate} className="comment-item">
 			<div onClick={handleDelete} className="comment-item-delete">&times;</div>
-			<input type='text' value={commentText} onChange={handleInput} />
-			<input type='submit' hidden />
+			<div>
+				<input type='text' value={commentText} onChange={handleInput} />
+				<input type='submit' hidden />
+			</div>
 		</form>
 	)
 }
