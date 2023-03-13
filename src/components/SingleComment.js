@@ -5,15 +5,15 @@ import { commentDelete, commentUpdate } from './../redux/comment-reducer';
 
 function SingleComment({ data }) {
 
-	const { text, id } = data
+	const { name, id } = data
 	const [commentText, setCommentText] = useState('')
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (text) {
-			setCommentText(text)
+		if (name) {
+			setCommentText(name)
 		}
-	}, [text])
+	}, [name])
 
 
 	// Сетаем текст нового комментария

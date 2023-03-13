@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import uniqid from 'uniqid';
 import { commentCreate } from "../redux/comment-reducer";
+import { useActions } from './../hooks/useAction';
 import SingleComment from './SingleComment';
-import { commentsLoad } from './../redux/comment-reducer';
 
 
 function Comments(props) {
@@ -11,10 +11,10 @@ function Comments(props) {
 	const dispatch = useDispatch()
 	const comments = useSelector(state => state.comments.comments)
 	const [textComment, setTextComment] = useState('')
-
+	const { load } = useActions()
 
 	useEffect(() => {
-		dispatch(commentsLoad())
+		load()
 	}, [])
 
 	// Сетаем текст комментария
