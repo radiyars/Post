@@ -51,32 +51,32 @@ export const appReducer = (state = initialState, action: AppReducerActionsTypes)
 
 //	Actions	-----------------------------------------------------------------------------------
 
-export type AppReducerActionsTypes = loaderOnType | loaderOffType | errorOnType | errorOffType
+export type AppReducerActionsTypes = LoaderOnType | LoaderOffType | ErrorOnType | ErrorOffType
 
 
-type loaderOnType = {
+type LoaderOnType = {
 	type: typeof LOADER_DISPLAY_ON
 }
-export const loaderOn = (): loaderOnType => ({ type: LOADER_DISPLAY_ON })
+export const loaderOn = (): LoaderOnType => ({ type: LOADER_DISPLAY_ON })
 
 
-type loaderOffType = {
+type LoaderOffType = {
 	type: typeof LOADER_DISPLAY_OFF
 }
-export const loaderOff = (): loaderOffType => ({ type: LOADER_DISPLAY_OFF })
+export const loaderOff = (): LoaderOffType => ({ type: LOADER_DISPLAY_OFF })
 
 
-type errorOnType = {
+type ErrorOnType = {
 	type: typeof ERROR_DISPLAY_ON
 	text: string
 }
-export const errorOn = (text: string): errorOnType => ({ type: ERROR_DISPLAY_ON, text })
+export const errorOn = (text: string): ErrorOnType => ({ type: ERROR_DISPLAY_ON, text })
 
 
-type errorOffType = {
+type ErrorOffType = {
 	type: typeof ERROR_DISPLAY_OFF
 }
-export const errorOff = (): errorOffType => ({ type: ERROR_DISPLAY_OFF })
+export const errorOff = (): ErrorOffType => ({ type: ERROR_DISPLAY_OFF })
 
 
 //	Thunks	------------------------------------------------------------------------------------
@@ -91,3 +91,4 @@ export const error = (text: string) => {
 }
 
 
+export const appActions = { loaderOn, loaderOff, errorOn, errorOff }

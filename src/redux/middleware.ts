@@ -1,9 +1,10 @@
 import { COMMENT_CREATE } from './comment-reducer';
 import { errorOn } from './app-reducer';
+import { Middleware } from 'redux';
 
 const badWords = ['козел', 'дурак']
 
-export function spamFilter({ dispatch }) {
+export const spamFilter: Middleware = ({ dispatch }) => {
 	return function (next) {
 		return function (action) {
 			if (action.type === COMMENT_CREATE) {
@@ -16,4 +17,3 @@ export function spamFilter({ dispatch }) {
 		}
 	}
 }
-
