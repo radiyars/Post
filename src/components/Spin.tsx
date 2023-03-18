@@ -1,8 +1,11 @@
 import Loader from "react-loader-spinner";
-import { useSelector } from 'react-redux';
+import { useTypedSelector } from './../hooks/useTypedSelector';
 
-const Spin = (props) => {
-	const spinner = useSelector(state => state.app.isLoading)
+type PropsType = {
+}
+
+export const Spin: React.FC<PropsType> = (props) => {
+	const spinner = useTypedSelector(state => state.app.isLoading)
 	return (
 		<div className="loader-styles">
 			<Loader
@@ -15,5 +18,3 @@ const Spin = (props) => {
 		</div>
 	)
 }
-
-export default Spin

@@ -17,7 +17,7 @@ export type InitialStateType = {
 
 type CommentType = {
 	name: string
-	id: number
+	id: string
 }
 
 const initialState: InitialStateType = {
@@ -81,21 +81,21 @@ type CommentCreateType = {
 	type: typeof COMMENT_CREATE
 	data: CommentType
 }
-export const commentCreate = (name: string, id: number): CommentCreateType => ({ type: COMMENT_CREATE, data: { name, id } })
+export const commentCreate = (name: string, id: string): CommentCreateType => ({ type: COMMENT_CREATE, data: { name, id } })
 
 
 type CommentUpdateType = {
 	type: typeof COMMENT_UPDATE
 	data: CommentType
 }
-export const commentUpdate = (name: string, id: number): CommentUpdateType => ({ type: COMMENT_UPDATE, data: { name, id } })
+export const commentUpdate = (name: string, id: string): CommentUpdateType => ({ type: COMMENT_UPDATE, data: { name, id } })
 
 
 type CommentDeleteType = {
 	type: typeof COMMENT_DELETE
-	id: number
+	id: string
 }
-export const commentDelete = (id: number): CommentDeleteType => ({ type: COMMENT_DELETE, id })
+export const commentDelete = (id: string): CommentDeleteType => ({ type: COMMENT_DELETE, id })
 
 
 type CommentsLoadType = {

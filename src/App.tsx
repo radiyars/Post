@@ -1,12 +1,13 @@
 import './App.css';
-import Comments from './components/Comments';
+import { Comments } from './components/Comments';
 import Likes from './components/Likes';
-import Title from './components/Title';
-import Spin from './components/Spin';
-import { useSelector } from 'react-redux';
+import { Spin } from './components/Spin';
+import { Title } from './components/Title';
+import { useTypedSelector } from './hooks/useTypedSelector';
+
 
 function App() {
-	const error = useSelector(state => state.app.error)
+	const error = useTypedSelector(state => state.app.error)
 	return (
 		<div className="App">
 			<div className="wrap">

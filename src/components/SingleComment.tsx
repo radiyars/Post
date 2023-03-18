@@ -1,9 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FormEvent, ChangeEvent, MouseEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import { commentDelete, commentUpdate } from './../redux/comment-reducer';
+import { commentDelete, commentUpdate } from '../redux/comment-reducer';
 
+type PropsType = {
+	data: {
+		name: string
+		id: string
+	}
+}
 
-function SingleComment({ data }) {
+export const SingleComment: React.FC<PropsType> = ({ data }) => {
 
 	const { name, id } = data
 	const [commentText, setCommentText] = useState('')
@@ -17,19 +23,19 @@ function SingleComment({ data }) {
 
 
 	// Сетаем текст нового комментария
-	const handleInput = (e) => {
+	const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
 		setCommentText(e.target.value)
 	}
 
 
 	// Обновляем комментарий
-	const handleUpdate = (e) => {
+	const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		dispatch(commentUpdate(commentText, id))
 	}
 
 	// Удаляем комментарий
-	const handleDelete = (e) => {
+	const handleDelete = (e: MouseEvent<HTMLInputElement>) => {
 		e.preventDefault()
 		dispatch(commentDelete(id))
 	}
@@ -46,5 +52,3 @@ function SingleComment({ data }) {
 	)
 }
 
-
-export default SingleComment

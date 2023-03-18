@@ -1,8 +1,15 @@
 import { connect } from "react-redux";
-import { decrementLikes, incrementLikes } from "../redux/likes-reducer.ts";
+import { decrementLikes, incrementLikes } from "../redux/likes-reducer";
+import { AppStateType } from "../redux/root-reducer";
 
 
-function Likes(props) {
+type PropsType = {
+	likes: number
+	incrementLikes: () => void
+	decrementLikes: () => void
+}
+
+const Likes: React.FC<PropsType> = (props) => {
 	return (
 		<div className='button-controls'>
 			<button onClick={props.incrementLikes}>♥{props.likes}</button>
@@ -12,7 +19,7 @@ function Likes(props) {
 }
 
 
-const MapStateToProps = (state) => {
+const MapStateToProps = (state: AppStateType) => {
 	return {
 		likes: state.likes.likes
 	}
