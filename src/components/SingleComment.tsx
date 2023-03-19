@@ -42,12 +42,10 @@ export const SingleComment: React.FC<PropsType> = ({ data }) => {
 
 
 	return (
-		<form onSubmit={handleUpdate} className="comment-item">
-			<div onClick={handleDelete} className="comment-item-delete">&times;</div>
-			<div>
-				<input type='text' value={commentText} onChange={handleInput} />
-				<input type='submit' hidden />
-			</div>
+		<form onSubmit={handleUpdate} className="comment">
+			<div onClick={handleDelete} className="comment__itemDelete">&times;</div>
+			<input type='text' value={commentText} onChange={handleInput} ></input>
+			<input type='submit' hidden />
 		</form>
 	)
 }

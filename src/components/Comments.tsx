@@ -38,10 +38,11 @@ export const Comments: React.FC<PropsType> = (props) => {
 
 
 	return (
-		<div className='card-comments'>
-			<form onSubmit={handleSubmit} className="comments-item-create">
-				<input type='text' value={textComment} onChange={handleInput} />
-				<input type='submit' />
+		<div className='comments'>
+			<form onSubmit={handleSubmit} className="comments__itemCreate">
+				<input className="comments__input" type='text' value={textComment} onChange={handleInput} />
+				{/* <input className="submit" type='submit' /> */}
+				<input type='submit' hidden />
 			</form>
 			{!!comments.length && comments.map(comment => {
 				return < SingleComment key={comment.id} data={comment} />

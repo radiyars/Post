@@ -17,8 +17,8 @@ export const Title: React.FC<PropsType> = (props) => {
 	}
 
 	return (
-		<div className='card-title'>
-			<div className="card-title-top">
+		<div className='card'>
+			<div className="card__title">
 				<input type='text' onChange={handleChange} value={title} />
 			</div>
 		</div>

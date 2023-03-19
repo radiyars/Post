@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { Comments } from './components/Comments';
 import Likes from './components/Likes';
 import { Spin } from './components/Spin';
@@ -9,17 +9,17 @@ import { useTypedSelector } from './hooks/useTypedSelector';
 function App() {
 	const error = useTypedSelector(state => state.app.error)
 	return (
-		<div className="App">
-			<div className="wrap">
+		<div className="post">
+			<div className="post__container">
 				<Spin />
-				<div className="card">
+				<div className="post__card">
 					{error && (
 						<div className='error-message'>
 							{error}
 						</div>
 					)}
-					<div className="card-image">
-						<img src="./sea.jpg" alt="surfing" />
+					<div className="post__image">
+						<img src="./tom-tajmahal.jpg" alt="surfing" />
 						<Title />
 						<Likes />
 					</div>
