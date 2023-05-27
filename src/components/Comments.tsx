@@ -1,7 +1,6 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import uniqid from 'uniqid';
-import { useActions } from '../hooks/useAction';
 import { commentCreate } from "../redux/comment-reducer";
 import { useTypedSelector } from './../hooks/useTypedSelector';
 import { SingleComment } from './SingleComment';
@@ -14,11 +13,8 @@ export const Comments: React.FC<PropsType> = (props) => {
 	const dispatch = useDispatch()
 	const comments = useTypedSelector(state => state.comments.comments)
 	const [textComment, setTextComment] = useState('')
-	const { load } = useActions()
 
-	useEffect(() => {
-		load()
-	}, [])
+
 
 
 	// Сетаем текст комментария

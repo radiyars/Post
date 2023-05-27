@@ -1,5 +1,5 @@
-import { AppReducerActionsTypes, errorOn, loaderOff, loaderOn } from "./app-reducer"
 import { Dispatch } from 'react';
+import { AppActionsTypes, errorOn, loaderOff, loaderOn } from './app-reducer';
 
 //	Actions CONST	---------------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ const initialState: InitialStateType = {
 }
 
 //	Reducer	-------------------------------------------------------------------------------------
-export const commentsReducer = (state = initialState, action: AppActionsTypes): InitialStateType => {
+export const commentsReducer = (state = initialState, action: CommentActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case COMMENT_CREATE:
 			return {
@@ -74,7 +74,7 @@ export const commentsReducer = (state = initialState, action: AppActionsTypes): 
 
 //	Actions	-----------------------------------------------------------------------------------
 
-export type AppActionsTypes = CommentCreateType | CommentUpdateType | CommentDeleteType | CommentsLoadType
+export type CommentActionsTypes = CommentCreateType | CommentUpdateType | CommentDeleteType | CommentsLoadType
 
 
 type CommentCreateType = {
@@ -108,8 +108,8 @@ export const commentsLoad = (data: Array<CommentType>): CommentsLoadType => ({ t
 
 //	Thunks	------------------------------------------------------------------------------------
 
-export function load() {
-	return async (dispatch: Dispatch<AppActionsTypes | AppReducerActionsTypes>) => {
+export function getComments() {
+	return async (dispatch: Dispatch<CommentActionsTypes | AppActionsTypes>) => {
 		try {
 			dispatch(loaderOn());
 			const response = await fetch('https://jsonplaceholder.typicode.com/comments?_limit=5');
@@ -124,4 +124,4 @@ export function load() {
 		}
 	}
 }
-export const commentsActions = { commentCreate, commentUpdate, commentDelete, load }
+export const commentsActions = { commentCreate, commentUpdate, commentDelete, getComments }

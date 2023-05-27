@@ -4,7 +4,7 @@ body {
 
 .post {
 	font-size: 18px;
-  
+
 
 	&__container {
 		position: relative;
@@ -16,7 +16,7 @@ body {
 		display: flex;
 		padding: 20px;
 		border: 1px solid #EDEEED;
-		box-shadow: 0 0 0 5px rgba(0,0,0,0.03);
+		box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.03);
 		flex-basis: calc(33.333% - 40px);
 		flex-grow: 1;
 		flex-shrink: 0;
@@ -34,11 +34,23 @@ body {
 		padding: 0;
 		flex: 1 0 60%;
 		max-width: 60%;
+
 		img {
 			width: 100%;
 			margin: 0;
-			}
 		}
+	}
+
+	&__upload-input {
+		display: none;
+	}
+
+	&__upload-label {
+		background-color: #5A00D2;
+		cursor: pointer;
+	}
+
+
 
 }
 
@@ -47,8 +59,8 @@ body {
 	flex: 1 0 40%;
 	max-width: 40%;
 	padding-right: 10px;
-	
-	&__itemCreate{
+
+	&__itemCreate {
 		display: flex;
 		align-items: center;
 	}
@@ -59,12 +71,12 @@ body {
 }
 
 
-.comment{
+.comment {
 
 	display: flex;
 	align-items: center;
-	
-	&__itemDelete{
+
+	&__itemDelete {
 		padding: 5px 15px 5px 5px;
 		cursor: pointer;
 	}
@@ -78,7 +90,7 @@ body {
 }
 
 .card {
-	&__title{
+	&__title {
 		display: flex;
 		align-items: center;
 
@@ -111,7 +123,7 @@ button:hover {
 }
 
 
-button:active{
+button:active {
 	background-color: darken(#F0F0F0, 12%);
 }
 
@@ -126,13 +138,13 @@ input {
 }
 
 
-.submit{
+.submit {
 
 	&:hover {
 		background-color: darken(#F0F0F0, 5%);
 	}
-	
-	&:active{
+
+	&:active {
 		background-color: darken(#F0F0F0, 12%);
 	}
 }
@@ -159,8 +171,7 @@ input {
 	font-size: 18px;
 	max-width: 240px;
 	color: #fff;
-	background: linear-gradient(20deg, rgba(255,0,0,1) 0%, rgba(200,0,0,1) 100%);
+	background: linear-gradient(20deg, rgba(255, 0, 0, 1) 0%, rgba(200, 0, 0, 1) 100%);
 	padding: 10px 20px;
 	border: 1px solid rgba(10, 10, 10, 0.25);
 }
-
