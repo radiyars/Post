@@ -1,5 +1,5 @@
 import { Dispatch } from "react"
-import { imageAPI } from "../api/app-api"
+import { fileAPI } from "../api/app-api"
 
 //	Actions CONST	---------------------------------------------------------------------------
 
@@ -13,12 +13,14 @@ const SET_IMAGE = 'SET_IMAGE'
 //	Initial State & i'ts type	---------------------------------------------------------------
 
 export type InitialStateType = {
+	_id: string
 	isLoading: boolean
 	error: string | null
 	imageSrc: string
 }
 
 const initialState: InitialStateType = {
+	_id: '',
 	isLoading: false,
 	error: null,
 	imageSrc: './no-image.jpg',
@@ -51,6 +53,7 @@ export const appReducer = (state = initialState, action: AppActionsTypes): Initi
 		case SET_IMAGE:
 			return {
 				...state,
+				_id: action._id,
 				imageSrc: BaseUrl + action.imageSrc.replace('\\', '/')
 			}
 		default:
@@ -91,9 +94,12 @@ export const errorOff = (): ErrorOffType => ({ type: ERROR_DISPLAY_OFF })
 
 type SetImageType = {
 	type: typeof SET_IMAGE
+	_id: string
 	imageSrc: string
 }
-export const setImage = (imageSrc: string): SetImageType => ({ type: SET_IMAGE, imageSrc })
+export const setImage = (imageSrc: string, _id: string): SetImageType => ({ type: SET_IMAGE, imageSrc, _id })
+
+
 
 
 //	Thunks	------------------------------------------------------------------------------------
@@ -110,13 +116,33 @@ export const error = (text: string) => {
 export function getImageSrc() {
 	return async (dispatch: Dispatch<AppActionsTypes>) => {
 		try {
-			let data = await imageAPI.getImage()
-			dispatch(setImage(data[0].imageSrc))
+			let data = await fileAPI.getFile()
+			dispatch(setImage(data[0].imageSrc, data[0]._id))
 		} catch (err) {
-			alert(`Не удалось загрузить изображе! ${err}`)
+			errorOn(`Не удалось загрузить изображе! ${err}`);
 		}
 	}
 }
 
 
-export const appActions = { loaderOn, loaderOff, errorOn, errorOff, getImageSrc }
+export function uploadFile(iamge: any, postId: string) {
+	return async (dispatch: Dispatch<AppActionsTypes>) => {
+		try {
+			const formData = new FormData()
+			formData.append('image', iamge)
+			let data = await fileAPI.patchFile(postId, formData)
+			dispatch(setImage(data.imageSrc, data._id))
+		} catch (err) {
+			errorOn(`Не удалось загрузить изображе! ${err}`);
+		}
+	}
+}
+
+export const appActions = {
+	loaderOn,
+	loaderOff,
+	errorOn,
+	errorOff,
+	getImageSrc,
+	uploadFile
+}

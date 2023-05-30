@@ -19,10 +19,7 @@ function App() {
 		getImageSrc()
 	}, [])
 
-	const onImageUpload = (event: any) => {
-		const file = event.target.files[0]
 
-	}
 
 	const error = useTypedSelector(state => state.app.error)
 
@@ -38,10 +35,7 @@ function App() {
 					)}
 					<div className="post__image">
 						<img src={imageSrc} alt="surfing" />
-						<div>
-							<label htmlFor='post__upload-input' className='post__upload-label'>Загрузить изображение</label>
-							<input onChange={(event) => onImageUpload(event)} type='file' id='post__upload-input' className='post__upload-input'></input>
-						</div>
+
 						<Title />
 						<Likes />
 					</div>
