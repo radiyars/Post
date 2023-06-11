@@ -10,13 +10,16 @@ import { useTypedSelector } from './hooks/useTypedSelector';
 
 
 function App() {
+
 	const imageSrc = useTypedSelector(state => state.app.imageSrc)
-	const { getComments, getImageSrc } = useActions()
+	const post = useTypedSelector(state => state.app)
+	const { getNameApi, getPostApi } = useActions()
 
 
 	useEffect(() => {
-		getComments()
-		getImageSrc()
+		// debugger
+		getPostApi()
+		getNameApi()
 	}, [])
 
 
@@ -34,7 +37,7 @@ function App() {
 						</div>
 					)}
 					<div className="post__image">
-						<img src={imageSrc} alt="surfing" />
+						<img src={imageSrc} alt="No image" />
 
 						<Title />
 						<Likes />

@@ -1,27 +1,51 @@
-import { ChangeEvent } from 'react';
-import { useDispatch } from "react-redux";
-import { inputText } from "../redux/title-reducer";
-import { useTypedSelector } from './../hooks/useTypedSelector';
+import { ChangeEvent, useEffect, useState } from 'react'
+import { useActions } from '../hooks/useAction'
+import { useTypedSelector } from './../hooks/useTypedSelector'
+
 
 type PropsType = {
 }
 
 export const Title: React.FC<PropsType> = (props) => {
 
-	const dispatch = useDispatch();
+	const [editMode, setEditMode] = useState(false)
+	const [newName, setNewName] = useState('')
 
-	const title = useTypedSelector(state => state.title.text)
+	const name = useTypedSelector(state => state.name.name)
+	const id = useTypedSelector(state => state.app._id)
+
+	const { patchNameApi } = useActions()
+
+	useEffect(() => {
+		setNewName(name)
+	}, [name])
+
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		dispatch(inputText(e.target.value))
+		setEditMode(false)
+		patchNameApi(id, e.target.value)
 	}
+
 
 	return (
 		<div className='card'>
 			<div className="card__title">
-				<input type='text' onChange={handleChange} value={title} />
+				{!editMode &&
+					< span
+						onClick={() => setEditMode(true)} >
+						{name}
+					</span >
+				}
+
+				{editMode &&
+					<input
+						type='text'
+						onChange={(e) => setNewName(e.target.value)}
+						value={newName}
+						onBlur={handleChange}
+					/>
+				}
 			</div>
 		</div>
 	)
 }
-

@@ -13,11 +13,11 @@ type PropsType = {
 
 const Likes: React.FC<PropsType> = (props) => {
 	const id = useTypedSelector(state => state.app._id)
-	const { uploadFile } = useActions()
+	const { uploadImage } = useActions()
 
 	const onImageUpload = (event: any) => {
 		const file = event.target.files[0]
-		uploadFile(file, id)
+		uploadImage(file, id)
 
 	}
 	return (

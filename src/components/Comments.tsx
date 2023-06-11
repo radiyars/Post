@@ -1,9 +1,9 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import { useDispatch } from "react-redux";
-import uniqid from 'uniqid';
-import { commentCreate } from "../redux/comment-reducer";
-import { useTypedSelector } from './../hooks/useTypedSelector';
-import { SingleComment } from './SingleComment';
+import { ChangeEvent, FormEvent, useState } from "react"
+import { useDispatch } from "react-redux"
+import uniqid from 'uniqid'
+import { commentCreate } from "../redux/comment-reducer"
+import { useTypedSelector } from './../hooks/useTypedSelector'
+import { SingleComment } from './SingleComment'
 
 type PropsType = {
 }

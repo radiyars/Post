@@ -5,13 +5,14 @@ import { appReducer } from './app-reducer';
 import { commentsReducer } from './comment-reducer';
 import { likesReducer } from './likes-reducer';
 import { spamFilter } from './middleware';
-import { titleReducer } from './title-reducer';
+import { nameReducer } from './name-reducer';
 
 
 export const rootReducer = combineReducers({
 	likes: likesReducer,
-	title: titleReducer,
+	title: nameReducer,
 	comments: commentsReducer,
+	name: nameReducer,
 	app: appReducer,
 })
 

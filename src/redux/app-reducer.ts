@@ -1,5 +1,6 @@
 import { Dispatch } from "react"
-import { fileAPI } from "../api/app-api"
+import { appAPI } from "../api/app-api"
+import { PostType } from "../types/types"
 
 //	Actions CONST	---------------------------------------------------------------------------
 
@@ -7,54 +8,53 @@ const LOADER_DISPLAY_ON = 'POST/LOADER_DISPLAY_ON'
 const LOADER_DISPLAY_OFF = 'POST/LOADER_DISPLAY_OFF'
 const ERROR_DISPLAY_ON = 'ERROR_DISPLAY_ON'
 const ERROR_DISPLAY_OFF = 'ERROR_DISPLAY_OFF'
-const SET_IMAGE = 'SET_IMAGE'
+const SET_POST = 'SET_POST'
 
 
 //	Initial State & i'ts type	---------------------------------------------------------------
 
-export type InitialStateType = {
-	_id: string
-	isLoading: boolean
-	error: string | null
-	imageSrc: string
-}
-
-const initialState: InitialStateType = {
+const initialState: PostType = {
 	_id: '',
+	name: '',
 	isLoading: false,
 	error: null,
 	imageSrc: './no-image.jpg',
 }
+
 const BaseUrl = 'http://localhost:5000/'
 
 //	Reducer	-------------------------------------------------------------------------------------
-export const appReducer = (state = initialState, action: AppActionsTypes): InitialStateType => {
+export const appReducer = (state = initialState, action: AppActionsTypes): PostType => {
 	switch (action.type) {
 		case LOADER_DISPLAY_ON:
 			return {
 				...state,
 				isLoading: true
 			}
+
 		case LOADER_DISPLAY_OFF:
 			return {
 				...state,
 				isLoading: false
 			}
+
 		case ERROR_DISPLAY_ON:
 			return {
 				...state,
 				error: action.text
 			}
+
 		case ERROR_DISPLAY_OFF:
 			return {
 				...state,
 				error: null
 			}
-		case SET_IMAGE:
+
+		case SET_POST:
 			return {
 				...state,
-				_id: action._id,
-				imageSrc: BaseUrl + action.imageSrc.replace('\\', '/')
+				_id: action.post._id,
+				imageSrc: BaseUrl + action.post.imageSrc.replace('\\', '/'),
 			}
 		default:
 			return state;
@@ -64,7 +64,7 @@ export const appReducer = (state = initialState, action: AppActionsTypes): Initi
 
 //	Actions	-----------------------------------------------------------------------------------
 
-export type AppActionsTypes = LoaderOnType | LoaderOffType | ErrorOnType | ErrorOffType | SetImageType
+export type AppActionsTypes = LoaderOnType | LoaderOffType | ErrorOnType | ErrorOffType | SetPostType
 
 
 type LoaderOnType = {
@@ -92,14 +92,11 @@ type ErrorOffType = {
 export const errorOff = (): ErrorOffType => ({ type: ERROR_DISPLAY_OFF })
 
 
-type SetImageType = {
-	type: typeof SET_IMAGE
-	_id: string
-	imageSrc: string
+type SetPostType = {
+	type: typeof SET_POST
+	post: PostType
 }
-export const setImage = (imageSrc: string, _id: string): SetImageType => ({ type: SET_IMAGE, imageSrc, _id })
-
-
+export const setPost = (post: PostType): SetPostType => ({ type: SET_POST, post })
 
 
 //	Thunks	------------------------------------------------------------------------------------
@@ -113,36 +110,35 @@ export const error = (text: string) => {
 	}
 }
 
-export function getImageSrc() {
+
+export function getPostApi() {
 	return async (dispatch: Dispatch<AppActionsTypes>) => {
 		try {
-			let data = await fileAPI.getFile()
-			dispatch(setImage(data[0].imageSrc, data[0]._id))
+			let data = await appAPI.getPost()
+			console.log('data:', data[0]);
+			dispatch(setPost(data[0]))
 		} catch (err) {
 			errorOn(`Не удалось загрузить изображе! ${err}`);
 		}
 	}
 }
 
+// export function getImageSrc() {
+// 	return async (dispatch: Dispatch<AppActionsTypes>) => {
+// 		try {
+// 			let data = await imageAPI.()
+// 			dispatch(setImage(data[0].imageSrc, data[0]._id))
+// 		} catch (err) {
+// 			errorOn(`Не удалось загрузить изображе! ${err}`);
+// 		}
+// 	}
+// }
 
-export function uploadFile(iamge: any, postId: string) {
-	return async (dispatch: Dispatch<AppActionsTypes>) => {
-		try {
-			const formData = new FormData()
-			formData.append('image', iamge)
-			let data = await fileAPI.patchFile(postId, formData)
-			dispatch(setImage(data.imageSrc, data._id))
-		} catch (err) {
-			errorOn(`Не удалось загрузить изображе! ${err}`);
-		}
-	}
-}
 
 export const appActions = {
 	loaderOn,
 	loaderOff,
 	errorOn,
 	errorOff,
-	getImageSrc,
-	uploadFile
+	getPostApi
 }
