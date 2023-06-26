@@ -1,8 +1,12 @@
+import { Dispatch } from "react"
+import { likesApi } from "../api/likes-api"
+import { errorOn } from "./app-reducer"
+
 
 //	Actions CONST	---------------------------------------------------------------------------
 
-const INCREMENT_LIKES = 'POST/INCREMENT_LIKES'
-const DECREMENT_LIKES = 'POST/DECREMENT_LIKES'
+
+const SET_LIKES = 'SET_LIKES'
 
 //	Initial State & i'ts type	---------------------------------------------------------------
 
@@ -13,19 +17,14 @@ const initialState = {
 type InitialStateType = typeof initialState
 
 //	Reducer	-------------------------------------------------------------------------------------
-export const likesReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
+export const likesReducer = (state = initialState, action: LikesActionsTypes): InitialStateType => {
 	switch (action.type) {
-		case INCREMENT_LIKES:
+		case SET_LIKES:
 			return {
 				...state,
-				likes: state.likes + 1
+				likes: action.likes
 			}
-		case DECREMENT_LIKES:
 
-			return {
-				...state,
-				likes: state.likes > 0 ? state.likes - 1 : state.likes
-			}
 		default:
 			return state;
 	}
@@ -33,14 +32,41 @@ export const likesReducer = (state = initialState, action: ActionsTypes): Initia
 
 //	Actions	-----------------------------------------------------------------------------------
 
-export type ActionsTypes = IncrementLikesType | DecrementLikesType
+export type LikesActionsTypes = SetLikesType
 
-type IncrementLikesType = {
-	type: typeof INCREMENT_LIKES
-}
-export const incrementLikes = (): IncrementLikesType => ({ type: INCREMENT_LIKES })
+type SetLikesType = {
+	type: typeof SET_LIKES
+	likes: number
 
-type DecrementLikesType = {
-	type: typeof DECREMENT_LIKES
 }
-export const decrementLikes = (): DecrementLikesType => ({ type: DECREMENT_LIKES })
+export const setLikes = (likes: number): SetLikesType => ({ type: SET_LIKES, likes })
+
+
+//	Thunks	------------------------------------------------------------------------------------
+
+export function getLikesApi() {
+	return async (dispatch: Dispatch<LikesActionsTypes>) => {
+		try {
+			let data = await likesApi.getLikes()
+			dispatch(setLikes(data))
+		} catch (err) {
+			errorOn(`Не удалось загрузить лайки! ${err}`);
+		}
+	}
+}
+
+export function patchLikesApi(id: string, likes: number) {
+	return async (dispatch: Dispatch<LikesActionsTypes>) => {
+		try {
+			await likesApi.patchLikes(id, likes)
+			dispatch(setLikes(likes))
+		} catch (err) {
+			errorOn(`Не удалось обновить лайки! ${err}`);
+		}
+	}
+}
+
+export const likesActions = {
+	getLikesApi,
+	patchLikesApi
+}

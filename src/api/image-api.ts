@@ -1,14 +1,13 @@
-import { PostType } from '../types/types';
-import { instance } from './api';
+import { PostType } from '../types/types'
+import { instance } from './api'
 
 
-export const imageAPI = {
+export const imageApi = {
 
-	// getFile() {
-	// 	return instance.get<Array<InitialStateType>>(``)
-	// 		.then(response => response.data);
-	// },
-
+	getImage() {
+		return instance.get<Array<PostType>>(``)
+			.then(response => response.data[0]);
+	},
 
 	patchImage(postId: string, formData: any) {
 		return instance.patch<PostType>(`/image/${postId}`, formData)

@@ -1,6 +1,6 @@
 import { Dispatch } from "react"
-import { appAPI } from "../api/app-api"
-import { PostType } from "../types/types"
+import { appApi } from "../api/app-api"
+import { PostType, appType } from "../types/types"
 
 //	Actions CONST	---------------------------------------------------------------------------
 
@@ -13,18 +13,15 @@ const SET_POST = 'SET_POST'
 
 //	Initial State & i'ts type	---------------------------------------------------------------
 
-const initialState: PostType = {
+const initialState: appType = {
 	_id: '',
-	name: '',
 	isLoading: false,
 	error: null,
-	imageSrc: './no-image.jpg',
 }
 
-const BaseUrl = 'http://localhost:5000/'
 
 //	Reducer	-------------------------------------------------------------------------------------
-export const appReducer = (state = initialState, action: AppActionsTypes): PostType => {
+export const appReducer = (state = initialState, action: AppActionsTypes): appType => {
 	switch (action.type) {
 		case LOADER_DISPLAY_ON:
 			return {
@@ -54,7 +51,6 @@ export const appReducer = (state = initialState, action: AppActionsTypes): PostT
 			return {
 				...state,
 				_id: action.post._id,
-				imageSrc: BaseUrl + action.post.imageSrc.replace('\\', '/'),
 			}
 		default:
 			return state;
@@ -114,25 +110,13 @@ export const error = (text: string) => {
 export function getPostApi() {
 	return async (dispatch: Dispatch<AppActionsTypes>) => {
 		try {
-			let data = await appAPI.getPost()
-			console.log('data:', data[0]);
+			let data = await appApi.getPost()
 			dispatch(setPost(data[0]))
 		} catch (err) {
 			errorOn(`Не удалось загрузить изображе! ${err}`);
 		}
 	}
 }
-
-// export function getImageSrc() {
-// 	return async (dispatch: Dispatch<AppActionsTypes>) => {
-// 		try {
-// 			let data = await imageAPI.()
-// 			dispatch(setImage(data[0].imageSrc, data[0]._id))
-// 		} catch (err) {
-// 			errorOn(`Не удалось загрузить изображе! ${err}`);
-// 		}
-// 	}
-// }
 
 
 export const appActions = {

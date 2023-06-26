@@ -2,7 +2,8 @@
 export type appType = {
 	isLoading: boolean
 	error: string | null
-	imageSrc: string
+	_id: string
+
 }
 
 
@@ -12,4 +13,5 @@ export type PostType = {
 	error: string | null
 	imageSrc: string
 	name: string
+	likes: number
 }
