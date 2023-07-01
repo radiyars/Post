@@ -1,12 +1,12 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useActions } from '../hooks/useAction'
-import { useTypedSelector } from './../hooks/useTypedSelector'
+import { useTypedSelector } from '../hooks/useTypedSelector'
 
 
 type PropsType = {
 }
 
-export const Title: React.FC<PropsType> = (props) => {
+export const Name: React.FC<PropsType> = (props) => {
 
 	const [editMode, setEditMode] = useState(false)
 	const [newName, setNewName] = useState('')

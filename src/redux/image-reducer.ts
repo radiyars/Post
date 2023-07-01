@@ -1,6 +1,6 @@
 import { Dispatch } from "react"
 import { imageApi } from "../api/image-api"
-import { errorOn } from "./app-reducer"
+import { AppActionsTypes, errorOn, loaderOff, loaderOn } from "./app-reducer"
 
 //	Actions CONST	---------------------------------------------------------------------------
 
@@ -47,25 +47,31 @@ export const setImage = (imageSrc: string,): SetImageType => ({ type: SET_IMAGE,
 //	Thunks	------------------------------------------------------------------------------------
 
 export function getImageApi() {
-	return async (dispatch: Dispatch<ImageActionsTypes>) => {
+	return async (dispatch: Dispatch<ImageActionsTypes | AppActionsTypes>) => {
 		try {
+			dispatch(loaderOn());
 			let data = await imageApi.getImage()
 			dispatch(setImage(data.imageSrc))
+			dispatch(loaderOff());
 		} catch (err) {
-			errorOn(`Не удалось загрузить изображение! ${err}`);
+			errorOn(`Не удалось получить изображение! ${err}`);
+			dispatch(loaderOff());
 		}
 	}
 }
 
 export function uploadImage(iamge: any, postId: string) {
-	return async (dispatch: Dispatch<ImageActionsTypes>) => {
+	return async (dispatch: Dispatch<ImageActionsTypes | AppActionsTypes>) => {
 		try {
+			dispatch(loaderOn());
 			const formData = new FormData()
 			formData.append('image', iamge)
 			let data = await imageApi.patchImage(postId, formData)
 			dispatch(setImage(data.imageSrc))
+			dispatch(loaderOff());
 		} catch (err) {
 			errorOn(`Не удалось установить изображение! ${err}`);
+			dispatch(loaderOff());
 		}
 	}
 }

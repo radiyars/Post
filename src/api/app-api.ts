@@ -6,7 +6,7 @@ export const appApi = {
 
 	getPost() {
 		return instance.get<Array<PostType>>(``)
-			.then(response => response.data);
+			.then(response => response.data[0]._id);
 	},
 
 }

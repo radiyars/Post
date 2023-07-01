@@ -1,7 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react"
-import { useDispatch } from "react-redux"
-import uniqid from 'uniqid'
-import { commentCreate } from "../redux/comment-reducer"
+import { useActions } from "../hooks/useAction"
 import { useTypedSelector } from './../hooks/useTypedSelector'
 import { SingleComment } from './SingleComment'
 
@@ -10,11 +8,10 @@ type PropsType = {
 
 export const Comments: React.FC<PropsType> = (props) => {
 
-	const dispatch = useDispatch()
-	const comments = useTypedSelector(state => state.comments.comments)
+	const comments: Array<string> | null = useTypedSelector(state => state.comments.comments)
+	const id = useTypedSelector(state => state.app._id)
+	const { patchCommentsApi } = useActions()
 	const [textComment, setTextComment] = useState('')
-
-
 
 
 	// Сетаем текст комментария
@@ -27,7 +24,12 @@ export const Comments: React.FC<PropsType> = (props) => {
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (textComment) {
-			dispatch(commentCreate(textComment, uniqid()))
+			if (comments) {
+				let a = [...comments, textComment]
+				patchCommentsApi(id, a)
+			} else {
+				patchCommentsApi(id, [textComment])
+			}
 			setTextComment('')
 		}
 	}
@@ -35,14 +37,15 @@ export const Comments: React.FC<PropsType> = (props) => {
 
 	return (
 		<div className='comments'>
-			<form onSubmit={handleSubmit} className="comments__itemCreate">
+			<form onSubmit={handleSubmit} onBlur={handleSubmit} className="comments__itemCreate" >
 				<input className="comments__input" type='text' value={textComment} onChange={handleInput} />
-				{/* <input className="submit" type='submit' /> */}
 				<input type='submit' hidden />
 			</form>
-			{!!comments.length && comments.map(comment => {
-				return < SingleComment key={comment.id} data={comment} />
-			})}
+			{comments &&
+				comments.map((comment, index) => {
+					return < SingleComment key={index} comment={comment} index={index} />
+				})
+			}
 		</div>
 	)
 }

@@ -14,4 +14,9 @@ export type PostType = {
 	imageSrc: string
 	name: string
 	likes: number
+	comments: Array<string>
+}
+
+export type CommentsType = {
+	comments: Array<string> | null
 }

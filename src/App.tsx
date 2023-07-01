@@ -3,30 +3,27 @@ import './App.scss'
 import { Comments } from './components/Comments'
 import Likes from './components/Likes'
 import { Spin } from './components/Spin'
-import { Title } from './components/Title'
+import { Name } from './components/Name'
 import { useActions } from './hooks/useAction'
 import { useTypedSelector } from './hooks/useTypedSelector'
 
 
-
 function App() {
 
+	const error = useTypedSelector(state => state.app.error)
 	const imageSrc = useTypedSelector(state => state.image.imageSrc)
-	const post = useTypedSelector(state => state.app)
-	const { getNameApi, getPostApi, getLikesApi, getImageApi } = useActions()
+	const { getNameApi, getLikesApi, getImageApi, getCommentsApi, getPostIdApi } = useActions()
 
 
 	useEffect(() => {
-		// debugger
+		getCommentsApi()
 		getImageApi()
-		getPostApi()
 		getNameApi()
 		getLikesApi()
+		getPostIdApi()
 	}, [])
 
 
-
-	const error = useTypedSelector(state => state.app.error)
 
 	return (
 		<div className="post">
@@ -39,9 +36,9 @@ function App() {
 						</div>
 					)}
 					<div className="post__image">
-						<img src={imageSrc} alt="No image" />
+						<img src={imageSrc} alt="#" />
 
-						<Title />
+						<Name />
 						<Likes />
 					</div>
 					<Comments />

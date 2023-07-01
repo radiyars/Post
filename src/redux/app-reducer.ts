@@ -1,6 +1,6 @@
 import { Dispatch } from "react"
 import { appApi } from "../api/app-api"
-import { PostType, appType } from "../types/types"
+import { appType } from "../types/types"
 
 //	Actions CONST	---------------------------------------------------------------------------
 
@@ -8,7 +8,7 @@ const LOADER_DISPLAY_ON = 'POST/LOADER_DISPLAY_ON'
 const LOADER_DISPLAY_OFF = 'POST/LOADER_DISPLAY_OFF'
 const ERROR_DISPLAY_ON = 'ERROR_DISPLAY_ON'
 const ERROR_DISPLAY_OFF = 'ERROR_DISPLAY_OFF'
-const SET_POST = 'SET_POST'
+const SET_POST_ID = 'SET_POST_ID'
 
 
 //	Initial State & i'ts type	---------------------------------------------------------------
@@ -47,10 +47,10 @@ export const appReducer = (state = initialState, action: AppActionsTypes): appTy
 				error: null
 			}
 
-		case SET_POST:
+		case SET_POST_ID:
 			return {
 				...state,
-				_id: action.post._id,
+				_id: action._id,
 			}
 		default:
 			return state;
@@ -89,10 +89,10 @@ export const errorOff = (): ErrorOffType => ({ type: ERROR_DISPLAY_OFF })
 
 
 type SetPostType = {
-	type: typeof SET_POST
-	post: PostType
+	type: typeof SET_POST_ID
+	_id: string
 }
-export const setPost = (post: PostType): SetPostType => ({ type: SET_POST, post })
+export const setPost = (_id: string): SetPostType => ({ type: SET_POST_ID, _id })
 
 
 //	Thunks	------------------------------------------------------------------------------------
@@ -107,22 +107,18 @@ export const error = (text: string) => {
 }
 
 
-export function getPostApi() {
+export function getPostIdApi() {
 	return async (dispatch: Dispatch<AppActionsTypes>) => {
 		try {
 			let data = await appApi.getPost()
-			dispatch(setPost(data[0]))
+			dispatch(setPost(data))
 		} catch (err) {
-			errorOn(`Не удалось загрузить изображе! ${err}`);
+			errorOn(`Не удалось получить ID! ${err}`);
 		}
 	}
 }
 
 
 export const appActions = {
-	loaderOn,
-	loaderOff,
-	errorOn,
-	errorOff,
-	getPostApi
+	getPostIdApi
 }

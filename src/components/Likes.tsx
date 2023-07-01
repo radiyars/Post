@@ -9,11 +9,11 @@ type PropsType = {
 }
 
 const Likes: React.FC<PropsType> = (props) => {
-	const [localLikes, setLocalLikes] = useState(0)
 
 	const id = useTypedSelector(state => state.app._id)
-	const imageSrc = useTypedSelector(state => state.image)
 	const likes = useTypedSelector(state => state.likes.likes)
+
+	const [localLikes, setLocalLikes] = useState(0)
 	const { uploadImage, patchLikesApi } = useActions()
 
 	useEffect(() => {
