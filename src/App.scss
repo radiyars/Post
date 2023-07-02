@@ -1,17 +1,33 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	outline: none;
+	font-family: 'Montserrat Alternates', -apple-system, system-ui, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	box-sizing: border-box;
+}
+
+
 body {
 	background-color: #F2F2F2;
 }
 
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	padding: 30px 15px;
+}
 
 .post {
 	font-size: 18px;
-
-
-	&__container {
-		position: relative;
-		max-width: 1200px;
-		margin: 140px auto 0;
-	}
+	// position: relative;
+	width: 1000px;
+	// min-height: 600px;
+	margin: auto;
 
 	&__card {
 		display: flex;
@@ -26,9 +42,9 @@ body {
 		position: relative;
 	}
 
-	&__image {
-		display: flex;
-		flex-direction: column;
+	&__body {
+		// display: flex;
+		// flex-direction: column;
 		box-shadow: none;
 		margin: 0 2rem 0 0;
 		border: 0;
@@ -36,9 +52,25 @@ body {
 		flex: 1 0 60%;
 		max-width: 60%;
 
+	}
+
+	&__image {
+		height: 400px;
+		overflow: hidden;
+		// position: relative;
+		// padding: 0 0 58% 0;
+
 		img {
 			width: 100%;
-			margin: 0;
+			height: 100%;
+			object-fit: contain;
+			// object-fit: cover;
+			// object-position: center;
+			// position: absolute;
+			// top: 0;
+			// left: 0;
+
+			// margin: 0;
 		}
 	}
 
@@ -173,14 +205,19 @@ input {
 
 .error-message {
 	position: absolute;
-	// left: 40%;
-	top: -80px;
+	// left: 100%;
+	top: -50px;
+	left: 0;
+	right: 0;
 	text-align: center;
 	text-transform: uppercase;
-	font-size: 18px;
+	font-size: 15px;
 	max-width: 100%;
 	color: #fff;
 	background: linear-gradient(20deg, rgba(255, 0, 0, 1) 0%, rgba(200, 0, 0, 1) 100%);
-	padding: 10px 20px;
+	padding: 5px;
+	margin: 0px auto;
 	border: 1px solid rgba(10, 10, 10, 0.25);
+
+	text-align: center;
 }

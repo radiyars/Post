@@ -26,8 +26,9 @@ function App() {
 
 
 	return (
-		<div className="post">
-			<div className="post__container">
+		<div className="container">
+			<div className="post">
+				{/* <div className="post__container"> */}
 				<Spin />
 				<div className="post__card">
 					{error && (
@@ -35,14 +36,17 @@ function App() {
 							{error}
 						</div>
 					)}
-					<div className="post__image">
-						<img src={imageSrc} alt="#" />
+					<div className="post__body">
+						<div className="post__image">
+							<img src={imageSrc} alt="#" />
+						</div>
 
 						<Name />
 						<Likes />
 					</div>
 					<Comments />
 				</div>
+				{/* </div> */}
 			</div>
 		</div>
 	);
