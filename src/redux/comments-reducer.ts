@@ -53,19 +53,19 @@ export function getCommentsApi() {
 			let data = await commentsApi.getComments();
 			dispatch(setComments(data));
 		} catch (err) {
-			errorOn(`Не удалось загрузить комментарии! ${err}`);
+			dispatch(errorOn(`Не удалось получить комментарии! ${err}`))
 		}
 	}
 }
 
 
 export function patchCommentsApi(id: string, comments: Array<string>) {
-	return async (dispatch: Dispatch<CommentActionsTypes>) => {
+	return async (dispatch: Dispatch<CommentActionsTypes | AppActionsTypes>) => {
 		try {
 			await commentsApi.patchComments(id, comments)
 			dispatch(setComments(comments))
 		} catch (err) {
-			errorOn(`Не удалось обновить лайки! ${err}`);
+			dispatch(errorOn(`Не удалось обновить кооментарии! ${err}`))
 		}
 	}
 }

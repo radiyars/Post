@@ -70,7 +70,7 @@ export function uploadImage(iamge: any, postId: string) {
 			dispatch(setImage(data.imageSrc))
 			dispatch(loaderOff());
 		} catch (err) {
-			errorOn(`Не удалось установить изображение! ${err}`);
+			dispatch(errorOn(`Не удалось установить изображение! ${err}`))
 			dispatch(loaderOff());
 		}
 	}

@@ -28,7 +28,6 @@ function App() {
 	return (
 		<div className="container">
 			<div className="post">
-				{/* <div className="post__container"> */}
 				<Spin />
 				<div className="post__card">
 					{error && (
@@ -46,7 +45,6 @@ function App() {
 					</div>
 					<Comments />
 				</div>
-				{/* </div> */}
 			</div>
 		</div>
 	);

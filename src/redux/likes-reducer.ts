@@ -51,7 +51,7 @@ export function getLikesApi() {
 			let data = await likesApi.getLikes()
 			dispatch(setLikes(data))
 		} catch (err) {
-			dispatch(errorOn(`Не удалось загрузить лайки! ${err}`))
+			dispatch(errorOn(`Не удалось получить лайки! ${err}`))
 		}
 	}
 }
@@ -63,7 +63,7 @@ export function patchLikesApi(id: string, likes: number) {
 			await likesApi.patchLikes(id, likes)
 			dispatch(setLikes(likes))
 		} catch (err) {
-			dispatch(errorOn(`Не удалось обновить лайки! ${err}`));
+			dispatch(errorOn(`Не удалось обновить лайки! ${err}`))
 		}
 	}
 }

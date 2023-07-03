@@ -1,6 +1,6 @@
 import { nameAPI } from "../api/name-api"
 import { Dispatch } from "react"
-import { errorOn } from "./app-reducer"
+import { AppActionsTypes, errorOn } from "./app-reducer"
 
 
 //	Actions CONST	---------------------------------------------------------------------------
@@ -42,18 +42,18 @@ export const setName = (text: string): SetNameType => ({ type: SET_NAME, name: t
 //	Thunks	------------------------------------------------------------------------------------
 
 export function getNameApi() {
-	return async (dispatch: Dispatch<NameActionsTypes>) => {
+	return async (dispatch: Dispatch<NameActionsTypes | AppActionsTypes>) => {
 		try {
 			let data = await nameAPI.getName()
 			dispatch(setName(data))
 		} catch (err) {
-			errorOn(`Не удалось загрузить название изображения! ${err}`);
+			dispatch(errorOn(`Не удалось загрузить название изображения! ${err}`))
 		}
 	}
 }
 
 export function patchNameApi(id: string, name: string) {
-	return async (dispatch: Dispatch<NameActionsTypes>) => {
+	return async (dispatch: Dispatch<NameActionsTypes | AppActionsTypes>) => {
 		try {
 			await nameAPI.patchName(id, name)
 			dispatch(setName(name))

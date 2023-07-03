@@ -113,7 +113,7 @@ export function getPostIdApi() {
 			let data = await appApi.getPost()
 			dispatch(setPost(data))
 		} catch (err) {
-			errorOn(`Не удалось получить ID! ${err}`);
+			dispatch(errorOn(`Не удалось получить ID! ${err}`))
 		}
 	}
 }
