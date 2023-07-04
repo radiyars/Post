@@ -41,7 +41,7 @@ const Likes: React.FC<PropsType> = (props) => {
 		<div className='button-controls'>
 			<button onClick={incrementLikes}>♥ {likes}</button>
 			<button onClick={decrementLikes}>Dislike</button>
-			<div>
+			<div className='post__upload'>
 				<label htmlFor='post__upload-input' className='post__upload-label'>Upload</label>
 				<input onChange={(event) => onImageUpload(event)} type='file' id='post__upload-input' className='post__upload-input'></input>
 			</div>
