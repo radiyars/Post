@@ -38,7 +38,7 @@ export const Comments: React.FC<PropsType> = (props) => {
 	return (
 		<div className='comments'>
 			<form onSubmit={handleSubmit} onBlur={handleSubmit} className="comments__itemCreate" >
-				<input className="comments__input" type='text' value={textComment} onChange={handleInput} />
+				<input className="comments__input" type='text' value={textComment} onChange={handleInput} placeholder=' Написать комментарий' />
 				<input type='submit' hidden />
 			</form>
 			{comments &&

@@ -34,12 +34,18 @@ body {
 		padding: 30px 30px;
 		border: 1px solid #EDEEED;
 		box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.03);
-		flex-basis: calc(33.333% - 40px);
+		// flex-basis: calc(33.333% - 40px);
 		flex-grow: 1;
 		flex-shrink: 0;
 		// margin: 0 20px 20px 20px;
 		background: white;
 		position: relative;
+
+		@media(max-width:768px) {
+			flex-direction: column;
+			// flex-basis: calc(33.333% - 40px);
+
+		}
 	}
 
 
@@ -54,7 +60,21 @@ body {
 		flex: 1 0 60%;
 		max-width: 60%;
 
+		@media(max-width:768px) {
+
+			// .post {
+			// &__body {
+			margin-bottom: 20px;
+			// border: 0;
+			// padding: 0;
+			// flex: 1 1;
+			max-width: 100%;
+
+		}
 	}
+
+	// }
+	// } 	
 
 	&__image {
 		height: 400px;
@@ -111,30 +131,36 @@ body {
 
 }
 
-@media(max-width:768px) {
+// @media(max-width:768px) {
 
-	.post {
+// 	.post {
 
-		&__card {
-			flex-direction: column;
-		}
+// 		&__card {
+// 			flex-direction: column;
+// 		}
 
-		&__body {
-			margin: 0 2rem 0 0;
-			border: 0;
-			padding: 0;
-			flex: 1 1;
-			max-width: 100%;
+// 		&__body {
+// 			margin: 0 2rem 0 0;
+// 			border: 0;
+// 			padding: 0;
+// 			flex: 1 1;
+// 			max-width: 100%;
 
-		}
-	}
+// 		}
+// 	}
 
-}
+// }
 
 .comments {
 	flex: 1 0 40%;
 	max-width: 40%;
 	padding-right: 10px;
+
+	@media(max-width:768px) {
+		max-width: 100%;
+		padding-right: 0px;
+
+	}
 
 	&__itemCreate {
 		display: flex;
@@ -153,8 +179,10 @@ body {
 	align-items: center;
 
 	&__itemDelete {
-		padding: 5px 15px 5px 5px;
+		font-size: 30px;
+		padding: 5px 0px 5px 5px;
 		cursor: pointer;
+		// text-align: center;
 	}
 }
 
@@ -174,13 +202,23 @@ body {
 		width: 100%;
 		border: 0;
 		padding: 10px 0;
+		border-top: 2px solid #f1f1f1;
 		border-bottom: 2px solid #f1f1f1;
 		outline: none;
 		resize: vertical;
 	}
 
+	input {
+
+		border-top: 2px solid #f1f1f1;
+		border-bottom: 2px solid #f1f1f1;
+	}
+
 }
 
+._grey {
+	color: #757575;
+}
 
 .button-controls {
 	display: flex;

@@ -30,7 +30,13 @@ export const Name: React.FC<PropsType> = (props) => {
 	return (
 		<div className='card'>
 			<div className="card__title">
-				{!editMode &&
+				{!editMode && !name &&
+					< span className='_grey'
+						onClick={() => setEditMode(true)} > Дать название изображению
+					</span >
+				}
+
+				{!editMode && name &&
 					< span
 						onClick={() => setEditMode(true)} >
 						{name}
