@@ -1,7 +1,9 @@
 import axios from "axios"
 
 export const instance = axios.create({
-	baseURL: 'http://localhost:5000/api/post',
+	// baseURL: 'http://localhost:5000/api/post',
+	// baseURL: 'https://post-server-three.vercel.app/api/post',
+	baseURL: 'http://62.113.105.72:5000/api/post',
 });
 
 
