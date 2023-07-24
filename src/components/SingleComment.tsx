@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState } from 'react'
 import { useActions } from '../hooks/useAction'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 
@@ -10,11 +10,14 @@ type PropsType = {
 export const SingleComment: React.FC<PropsType> = (props) => {
 
 	const comments: Array<string> | null = useTypedSelector(state => state.comments.comments)
+	const formRef = useRef<HTMLFormElement>(null);
+
 	let newComments: Array<string> | null
 	if (comments) {
 		newComments = [...comments]
 	}
 	const id = useTypedSelector(state => state.app._id)
+
 
 	const [commentText, setCommentText] = useState('')
 	const { patchCommentsApi } = useActions()
@@ -47,20 +50,18 @@ export const SingleComment: React.FC<PropsType> = (props) => {
 	}
 
 	// Удаляем комментарий
-	const handleDelete = (e: MouseEvent<HTMLInputElement>) => {
-		e.preventDefault()
+	const handleDelete = () => {
 		if (newComments) {
 			newComments.splice(props.index, 1)
 			patchCommentsApi(id, newComments)
 		}
 	}
 
-
 	return (
-		<form onSubmit={handleUpdate} onBlur={handleUpdate} className="comment">
-			<input type='text' value={commentText} onChange={handleInput} ></input>
+		<form ref={formRef} onSubmit={handleUpdate} onBlur={handleUpdate} className="comment">
+			<input type='text' value={commentText} onChange={handleInput}></input>
 			<input type='submit' hidden />
-			<div onClick={handleDelete} className="comment__itemDelete">&times;</div>
+			<img className='actionsvg' src='./close.svg' alt='подтвердить' onClick={handleDelete} />
 		</form>
 	)
 }

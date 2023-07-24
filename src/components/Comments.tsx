@@ -47,7 +47,7 @@ export const Comments: React.FC<PropsType> = (props) => {
 				<input className="comments__input" type='text' value={textComment} onChange={handleInput} placeholder=' Написать комментарий' />
 				<input type='submit' hidden />
 				{textComment &&
-					<img className='entersvg' src='./enter.svg' alt='подтвердить' onClick={addComment} />
+					<img className='actionsvg' src='./enter.svg' alt='подтвердить' onClick={addComment} />
 				}
 			</form>
 			{comments &&
