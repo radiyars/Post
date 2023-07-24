@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { useActions } from '../hooks/useAction'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 
@@ -16,16 +16,28 @@ export const Name: React.FC<PropsType> = (props) => {
 
 	const { patchNameApi } = useActions()
 
+	const inputRef = useRef<HTMLInputElement>(null);
+
 	useEffect(() => {
 		setNewName(name)
 	}, [name])
 
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+	// const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = () => {
 		setEditMode(false)
-		patchNameApi(id, e.target.value)
+		if (inputRef.current) {
+			patchNameApi(id, inputRef.current.value)
+		}
+		// patchNameApi(id, e.target.value)
 	}
 
+	// const enter = () => {
+	// 	setEditMode(false)
+	// 	if (inputRef.current) {
+	// 		patchNameApi(id, inputRef.current.value)
+	// 	}
+	// }
 
 	return (
 		<div className='card'>
@@ -46,11 +58,18 @@ export const Name: React.FC<PropsType> = (props) => {
 				{editMode &&
 					<input
 						type='text'
+						ref={inputRef}
 						onChange={(e) => setNewName(e.target.value)}
 						value={newName}
 						onBlur={handleChange}
 					/>
 				}
+
+
+				{editMode && newName &&
+					< img className='entersvg' src='./enter.svg' alt='подтвердить' onClick={handleChange} />
+				}
+
 			</div>
 		</div>
 	)
