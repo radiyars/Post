@@ -15,8 +15,8 @@ const initialState = {
 
 type InitialStateType = typeof initialState
 
-const BaseUrl = 'http://localhost:5000/'
-// const BaseUrl = 'http://62.113.105.72:5000/'
+// const BaseUrl = 'http://localhost:5000/'
+const BaseUrl = 'http://62.113.105.72:5000/'
 
 
 //	Reducer	-------------------------------------------------------------------------------------
